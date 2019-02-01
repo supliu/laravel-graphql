@@ -46,10 +46,9 @@ You must create your <a href="https://graphql.org/learn/queries/">Query</a> and 
 ],
 
 'mutations' => [
+    'updateHero' => \App\GraphQL\Mutations\UpdateHero::class
 ]
 ```
-
-
 
 ### Query
 
@@ -95,6 +94,60 @@ class DetailHero extends Query
     protected function resolve($root, $args, $context, $info)
     {
         return Hero::find($args['id']);
+    }
+}
+```
+
+### Mutation
+
+Below is an example of a Mutation class that returns if update worked:
+
+```php
+<?php
+
+namespace App\GraphQL\Mutations;
+
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
+use Supliu\LaravelGraphQL\Mutation;
+
+class UpdateHero extends Mutation
+{
+    protected function typeResult(): Type
+    {
+        return new ObjectType([
+            'name' => 'UpdateHeroResult',
+            'fields' => [
+                'error' => Type::boolean(),
+                'message' => Type::string()
+            ]
+        ]);
+    }
+
+    /**
+     * @return array
+     */
+    protected function args(): array
+    {
+        return [
+            'id' => Type::nonNull(Type::int())
+            'name' => Type::nonNull(Type::string())
+        ];
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function resolve($root, $args, $context, $info)
+    {
+        Hero::find($args['id'])->update([
+          'name' => $args['name']
+        ]);
+    
+        return [
+            'error' => false,
+            'message' => 'Updated!'
+        ];
     }
 }
 ```
