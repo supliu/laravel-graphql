@@ -4,7 +4,7 @@ namespace Supliu\LaravelGraphQL\Tests;
 
 use Orchestra\Testbench\TestCase;
 
-class StarWarsQueryTest extends TestCase
+class HeroQueryTest extends TestCase
 {
     /**
      * @param \Illuminate\Foundation\Application $app
