@@ -35,3 +35,51 @@ Execute a publish with artisan command:
 ```
 php artisan vendor:publish --provider="\Supliu\LaravelGraphQL\ServiceProvider::class"
 ```
+
+## How to use
+
+You must declare your <a href="https://graphql.org/learn/queries/">Query</a> and <a href="https://graphql.org/learn/queries/#mutations">Mutation</a> classes so that GraphQL can read.
+
+### Query
+
+Below is an example of a Query class that returns the data of a Star Wars hero:
+
+```php
+<?php
+
+namespace App\GraphQL\Queries;
+
+use GraphQL\Type\Definition\ObjectType;
+use GraphQL\Type\Definition\Type;
+use Supliu\LaravelGraphQL\Query;
+
+class HeroQuery extends Query
+{
+    /**
+     * @return Type
+     */
+    protected function typeResult(): Type
+    {
+        return new ObjectType([
+            'name' => 'HeroQueryResult',
+            'fields' => [
+                'name' => Type::string()
+            ]
+        ]);
+    }
+
+    /**
+     * @return mixed
+     */
+    protected function resolve($root, $args, $context, $info)
+    {
+        return [
+            'name' => 'R2-D2'
+        ];
+    }
+}
+```
+
+## License
+
+The Laravel GraphQL is open-sourced project licensed under the [MIT license](https://opensource.org/licenses/MIT).
