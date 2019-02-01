@@ -38,7 +38,18 @@ php artisan vendor:publish --provider="\Supliu\LaravelGraphQL\ServiceProvider::c
 
 ## How to use
 
-You must declare your <a href="https://graphql.org/learn/queries/">Query</a> and <a href="https://graphql.org/learn/queries/#mutations">Mutation</a> classes so that GraphQL can read.
+You must create your <a href="https://graphql.org/learn/queries/">Query</a> and <a href="https://graphql.org/learn/queries/#mutations">Mutation</a> classes and register on `config/graphql.php` so that GraphQL can read.
+
+```php
+'queries' => [
+    'detailHero' => \App\GraphQL\Queries\DetailHero::class
+],
+
+'mutations' => [
+]
+```
+
+
 
 ### Query
 
@@ -53,8 +64,18 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\Type;
 use Supliu\LaravelGraphQL\Query;
 
-class HeroQuery extends Query
+class DetailHero extends Query
 {
+    /**
+     * @return array
+     */
+    protected function args(): array
+    {
+        return [
+            'id' => Type::nonNull(Type::int())
+        ];
+    }
+    
     /**
      * @return Type
      */
@@ -73,9 +94,7 @@ class HeroQuery extends Query
      */
     protected function resolve($root, $args, $context, $info)
     {
-        return [
-            'name' => 'R2-D2'
-        ];
+        return Hero::find($args['id']);
     }
 }
 ```
