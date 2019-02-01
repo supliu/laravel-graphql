@@ -27,11 +27,23 @@ class ServiceProvider extends BaseServiceProvider
     public function boot()
     {
         /*
-         * Add configs
+         * Load views
+         */
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-graphql');
+
+        /*
+         * Publish config
          */
         $this->publishes([
             __DIR__.'/../config/graphql.php' => config_path('graphql.php')
         ], 'config');
+
+        /*
+         * Publish view
+         */
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/supliu/laravel-graphql'),
+        ]);
 
         /*
          * Add routers
