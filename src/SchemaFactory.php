@@ -20,7 +20,7 @@ class SchemaFactory
             throw new Exception('Schemas not found.');
 
         if(!isset($config['schemas'][$schema]))
-            throw new Exception('Access "'.$schema.'" not found.');
+            throw new Exception('Schema "'.$schema.'" not found.');
 
         $ref = $config['schemas'][$schema];
 
