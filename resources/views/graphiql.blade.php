@@ -71,7 +71,7 @@
 
     <input id="schema" class="contextInput" type="text" placeholder="Schema" onchange="renderGraphiQL()" />
 
-    <button class="reloadButton" onclick="renderGraphiQL()">Reload</button>
+    <button class="reloadButton" onclick="resetFormData(); renderGraphiQL();">Reload</button>
 
     <div style="display: block;">
         <button id="upload" style="background-color: #c51f1a; color: #FFF; padding: 10px; border: 0px; width: 200px; cursor: pointer;'">Upload file</button>
@@ -111,10 +111,17 @@
         if(formData === null)
             formData = new FormData();
 
-        debugger;
-
         formData.append(fieldName, inputFile.files[0], inputFile.files[0].name);
     });
+
+    function resetFormData(){
+        formData = null;
+
+        inputFile.style.display = "none";
+        inputFile.name = '';
+        inputFile.disabled = false;
+        inputFile.value = '';
+    }
 
     document.getElementById('upload').addEventListener('click', function () {
         inputFile.click();
