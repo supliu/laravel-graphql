@@ -13,7 +13,7 @@ class GraphQLController extends Controller
      */
     public function index()
     {
-       return view('laravel-graphql::graphiql');
+        return view('laravel-graphql::graphiql');
     }
 
     /**
@@ -55,6 +55,17 @@ class GraphQLController extends Controller
          * Execute Query
          */
         $result = $graphQL->executeQuery($schemaFactory->create($schema), $query, null, null, $variables);
+
+        /*
+         * Show error
+         */
+        if(count($result->errors) > 0){
+
+            foreach ($result->errors as $error)
+                report($error->getPrevious());
+
+            return response()->json(['errors' => $result->errors]);
+        }
 
         /*
          * To json
