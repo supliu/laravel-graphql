@@ -62,7 +62,8 @@ class GraphQLController extends Controller
         if(count($result->errors) > 0){
 
             foreach ($result->errors as $error)
-                report($error->getPrevious());
+                if(!is_null($error->getPrevious()))
+                    report($error->getPrevious());
 
             return response()->json(['errors' => $result->errors]);
         }
