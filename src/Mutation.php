@@ -3,6 +3,7 @@
 namespace Supliu\LaravelGraphQL;
 
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Facades\Validator;
 
 abstract class Mutation
 {
@@ -12,7 +13,7 @@ abstract class Mutation
     private $config;
 
     /**
-     * Query constructor.
+     * Mutation constructor.
      */
     public function __construct()
     {
@@ -27,6 +28,14 @@ abstract class Mutation
      * @return mixed
      */
     protected abstract function resolve($root, $args, $context, $info);
+
+    /**
+     * @return array
+     */
+    protected function rules(): array
+    {
+        return [];
+    }
 
     /**
      * @return array
@@ -50,6 +59,9 @@ abstract class Mutation
     private function resolveFunction()
     {
         return function ($root, $args, $context, $info) {
+
+            if(!empty($this->rules()))
+                Validator::make($args, $this->rules())->validate();
 
             return $this->resolve($root, $args, $context, $info);
         };
