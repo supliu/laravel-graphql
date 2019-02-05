@@ -6,6 +6,8 @@ use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\UnauthorizedException;
 
 abstract class QueryPaginated
 {
@@ -51,6 +53,22 @@ abstract class QueryPaginated
     protected abstract function resolve($root, $args, $context, $info);
 
     /**
+     * @return boolean
+     */
+    protected function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    protected function rules(): array
+    {
+        return [];
+    }
+
+    /**
      * @return array
      */
     protected function args(): array
@@ -72,6 +90,12 @@ abstract class QueryPaginated
     private function resolveFunction()
     {
         return function ($root, $args, $context, $info) {
+
+            if(!$this->authorize())
+                throw new UnauthorizedException("Unauthorized.");
+
+            if(!empty($this->rules()))
+                Validator::make($args, $this->rules())->validate();
 
             $this->resolveInfo = $info;
 

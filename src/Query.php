@@ -4,6 +4,8 @@ namespace Supliu\LaravelGraphQL;
 
 use GraphQL\Type\Definition\ResolveInfo;
 use GraphQL\Type\Definition\Type;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\UnauthorizedException;
 
 abstract class Query
 {
@@ -26,6 +28,13 @@ abstract class Query
             'type' => $this->typeResult(),
             'args' => $this->resolveArgs(),
             'resolve' => function ($root, $args, $context, $info) {
+
+                if(!$this->authorize())
+                    throw new UnauthorizedException("Unauthorized.");
+
+                if(!empty($this->rules()))
+                    Validator::make($args, $this->rules())->validate();
+
                 return $this->resolve($root, $args, $context, $info);
             }
         ];
@@ -35,6 +44,22 @@ abstract class Query
      * @return mixed
      */
     protected abstract function resolve($root, $args, $context, $info);
+
+    /**
+     * @return boolean
+     */
+    protected function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * @return array
+     */
+    protected function rules(): array
+    {
+        return [];
+    }
 
     /**
      * @return array

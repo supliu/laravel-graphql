@@ -4,6 +4,7 @@ namespace Supliu\LaravelGraphQL;
 
 use GraphQL\Type\Definition\Type;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\UnauthorizedException;
 
 abstract class Mutation
 {
@@ -28,6 +29,14 @@ abstract class Mutation
      * @return mixed
      */
     protected abstract function resolve($root, $args, $context, $info);
+
+    /**
+     * @return boolean
+     */
+    protected function authorize(): bool
+    {
+        return true;
+    }
 
     /**
      * @return array
@@ -59,6 +68,9 @@ abstract class Mutation
     private function resolveFunction()
     {
         return function ($root, $args, $context, $info) {
+
+            if(!$this->authorize())
+                throw new UnauthorizedException("Unauthorized.");
 
             if(!empty($this->rules()))
                 Validator::make($args, $this->rules())->validate();
