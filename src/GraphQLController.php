@@ -5,6 +5,7 @@ namespace Supliu\LaravelGraphQL;
 use GraphQL\GraphQL;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Validation\ValidationException;
 
 class GraphQLController extends Controller
 {
@@ -59,13 +60,31 @@ class GraphQLController extends Controller
         /*
          * Show error
          */
+
         if(count($result->errors) > 0){
 
-            foreach ($result->errors as $error)
-                if(!is_null($error->getPrevious()))
-                    report($error->getPrevious());
+            $errors = [];
 
-            return response()->json(['errors' => $result->errors]);
+            /*
+             * Check previous and report
+             */
+            foreach ($result->errors as $error){
+
+                $previous = $error->getPrevious();
+
+                if(!is_null($previous)){
+
+                    report($previous);
+
+                    if($previous instanceof ValidationException)
+                        foreach ($previous->validator->errors()->all() as $row)
+                            $errors[] = ['message' => $row];
+                }
+
+                $errors[] = ['message' => $error->getMessage()];
+            }
+
+            return response()->json(['errors' => $errors]);
         }
 
         /*
