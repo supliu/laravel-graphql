@@ -33,7 +33,7 @@ Add Service Provider in `config/app.php`
 Execute a publish with artisan command:
 
 ```
-php artisan vendor:publish --provider="\Supliu\LaravelGraphQL\ServiceProvider::class"
+php artisan vendor:publish --provider="Supliu\LaravelGraphQL\ServiceProvider"
 ```
 
 ## How to use
