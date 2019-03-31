@@ -18,8 +18,7 @@ Use composer to install this package
 ```
 composer require supliu/laravel-graphql
 ```
-
-Add Service Provider in `config/app.php`
+From Laravel 5.5 onwards, it's possible to take advantage of auto-discovery of the service provider. For Laravel versions before 5.5, you must register the service provider in your `config/app.php`
 
 ```php
 'providers' => [
