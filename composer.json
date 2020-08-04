@@ -3,6 +3,9 @@
     "description": "GraphQL with Laravel Framework",
     "type": "library",
     "license": "MIT",
+    "keywords": [
+        "laravel", "graphql", "api"
+    ],
     "authors": [
         {
             "name": "Jansen Felipe",
@@ -27,10 +30,17 @@
         "orchestra/testbench": "5.*"
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        },
         "laravel": {
             "providers": [
                 "Supliu\\LaravelGraphQL\\ServiceProvider"
             ]
         }
-    }
+    },
+    "suggest": {
+        "supliu/laravel-query-monitor": "Simple artisan command to monitoring triggered queries SQL"
+    },
+    "minimum-stability": "dev"
 }
