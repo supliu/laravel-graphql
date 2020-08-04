@@ -9,24 +9,14 @@
 
 # Laravel GraphQL
 
-The objective of this project is to facilitate the integration of the <a href="https://github.com/webonyx/graphql-php">webonyx/graphql-php</a> library with the Laravel Framework.
+The objective of this project is to facilitate the integration of the <a href="https://github.com/webonyx/graphql-php">webonyx/graphql-php</a>  with the Laravel Framework 7.*
 
 ## How to install
 
 Use composer to install this package
 
-```
+```ssh
 composer require supliu/laravel-graphql
-```
-From Laravel 5.5 onwards, it's possible to take advantage of auto-discovery of the service provider. For Laravel versions before 5.5, you must register the service provider in your `config/app.php`
-
-```php
-'providers' => [
-    /*
-     * Package Service Providers...
-     */
-    \Supliu\LaravelGraphQL\ServiceProvider::class,
-],
 ```
 
 Execute a publish with artisan command:
