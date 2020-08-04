@@ -20,11 +20,11 @@
         }
     },
     "require": {
-        "webonyx/graphql-php": "^0.13.0",
-        "laravel/framework": "5.*"
+        "webonyx/graphql-php": "14.*",
+        "laravel/framework": "7.*"
     },
     "require-dev": {
-        "orchestra/testbench": "~3.0"
+        "orchestra/testbench": "5.*"
     },
     "extra": {
         "laravel": {
