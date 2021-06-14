@@ -24,7 +24,7 @@
     },
     "require": {
         "webonyx/graphql-php": "14.*",
-        "laravel/framework": "^7.30.4|^8.0"
+        "laravel/framework": "^7.30.4|^8.40"
     },
     "require-dev": {
         "orchestra/testbench": "5.*"
