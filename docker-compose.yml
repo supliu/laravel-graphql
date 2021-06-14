@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+
+  laravel-graphql:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - .:/app:delegated
+      - ~/.composer:/home/root/.composer:delegated
