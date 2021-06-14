@@ -8,6 +8,10 @@
 
 The objective of this project is to facilitate the integration of the <a href="https://github.com/webonyx/graphql-php">webonyx/graphql-php</a>  with the Laravel Framework
 
+<p align="center">
+  <img src="assets/graphiql.png">
+</p>
+
 ## How to install
 
 Use composer to install this package
