@@ -6,7 +6,7 @@
 
 [![Latest Stable Version](https://poser.pugx.org/supliu/laravel-graphql/v)](//packagist.org/packages/supliu/laravel-graphql) [![Total Downloads](https://poser.pugx.org/supliu/laravel-graphql/downloads)](//packagist.org/packages/supliu/laravel-graphql) [![Latest Unstable Version](https://poser.pugx.org/supliu/laravel-graphql/v/unstable)](//packagist.org/packages/supliu/laravel-graphql) [![License](https://poser.pugx.org/supliu/laravel-graphql/license)](//packagist.org/packages/phpunit/phpunit)
 
-The objective of this project is to facilitate the integration of the <a href="https://github.com/webonyx/graphql-php">webonyx/graphql-php</a>  with the Laravel Framework 7.*
+The objective of this project is to facilitate the integration of the <a href="https://github.com/webonyx/graphql-php">webonyx/graphql-php</a>  with the Laravel Framework
 
 ## How to install
 
